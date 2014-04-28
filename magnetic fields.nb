@@ -1,0 +1,404 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     13705,        395]
+NotebookOptionsPosition[     12886,        364]
+NotebookOutlinePosition[     13221,        379]
+CellTagsIndexPosition[     13178,        376]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"from", " ", 
+      RowBox[{"http", ":"}]}], "//", 
+     RowBox[{
+      RowBox[{"books", ".", "google", ".", "com"}], "/", 
+      RowBox[{"books", "?", "hl"}]}]}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"en", "&"}], "id"}], "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Do1Opir9guIC", "&"}], "pg"}], "=", 
+      RowBox[{
+       RowBox[{"PA481", "#", "v"}], "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"onepage", "&"}], "q"}], "&"}], "f"}], "=", 
+        "true"}]}]}]}]}], "*)"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"makeFieldComponentDefinitions", "[", 
+     RowBox[{
+     "fieldComponents_", ",", "field_", ",", "vars_", ",", "varType__"}], 
+     "]"}], ":=", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Clear", "/@", " ", "fieldComponents"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"New", " ", "Definitions"}], "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"MapIndexed", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"SetDelayed", " ", "@@", "\[IndentingNewLine]", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"Hold", "[", 
+              RowBox[{
+               RowBox[{"#1", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Pattern", "[", 
+                   RowBox[{"#", ",", 
+                    RowBox[{"Blank", "[", "varType", "]"}]}], "]"}], "&"}], 
+                 " ", "/@", " ", "vars"}], "]"}], ",", "\[IndentingNewLine]", 
+               
+               RowBox[{
+                RowBox[{"n", "[", 
+                 RowBox[{"field", "[", "vars", "]"}], "]"}], "[", 
+                RowBox[{"[", "C", "]"}], "]"}]}], "]"}], " ", "/.", 
+             RowBox[{"C", "\[Rule]", " ", 
+              RowBox[{"#2", "[", 
+               RowBox[{"[", "1", "]"}], "]"}]}]}], ")"}]}], ")"}], "&"}], ",",
+         "fieldComponents"}], "]"}]}], ")"}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"calculateFieldLine", "[", 
+     RowBox[{"fieldLineVector_", ",", "startPoint_", ",", "fields_", ",", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", 
+        RowBox[{"t0_:", "0"}], ",", "t1_"}], "}"}], ",", "opts__"}], "]"}], ":=", 
+    RowBox[{"With", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"flvt", "=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "[", "t", "]"}], "&"}], " ", "/@", " ", 
+         "fieldLineVector"}]}], "}"}], ",", 
+      RowBox[{"NDSolve", "[", 
+       RowBox[{
+        RowBox[{"Join", "[", 
+         RowBox[{"(*", 
+          RowBox[{"differential", " ", "equation"}], "*)"}], " ", 
+         RowBox[{
+          RowBox[{"Thread", "[", 
+           RowBox[{
+            RowBox[{"D", "[", 
+             RowBox[{"flvt", ",", "t"}], "]"}], "\[Equal]", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"#", "[", "flvt", "]"}], "&"}], " ", "/@", " ", 
+              "fields"}], ")"}]}], "]"}], ",", " ", "\[IndentingNewLine]", 
+          RowBox[{"(*", " ", 
+           RowBox[{
+            RowBox[{"init", "'"}], "l", " ", "conditions"}], "*)"}], 
+          "\[IndentingNewLine]", 
+          RowBox[{"Thread", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"flvt", " ", "/.", " ", 
+              RowBox[{"t", " ", "\[Rule]", " ", "t0"}]}], ")"}], "\[Equal]", 
+            " ", "startPoint"}], "]"}]}], "]"}], ",", "fieldLineVector", ",", 
+        " ", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "t0", ",", "t1"}], "}"}], ",", "opts"}], "]"}]}], 
+     "]"}]}], "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"length", " ", "of", " ", "a", " ", "vector"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"norm", "[", "vector_", "]"}], ":=", 
+    RowBox[{"Sqrt", "[", 
+     RowBox[{"vector", ".", "vector"}], "]"}]}], "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"normalize", " ", "a", " ", "vector"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"n", "[", "vector_", "]"}], ":=", 
+    FractionBox["vector", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{"vector", ".", "vector"}], "]"}]]}], "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{"a", " ", "wire", " ", "of", " ", "0", " ", "radius"}], ",", " ", 
+     RowBox[{"length", " ", "t"}]}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"infiniteWire", "[", "t_", "]"}], "=", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "t"}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Simplify", "[", 
+    RowBox[{"Integrate", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Cross", "[", 
+        RowBox[{
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"infiniteWire", "[", "t", "]"}], ",", "t"}], "]"}], ",", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"x", ",", "y", ",", "z"}], "}"}], "-", 
+          RowBox[{"infiniteWire", "[", "t", "]"}]}]}], "]"}], "/", 
+       RowBox[{
+        RowBox[{"norm", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"x", ",", "y", ",", "z"}], "}"}], "-", 
+          RowBox[{"infiniteWire", "[", "t", "]"}]}], "]"}], "^", "3"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", 
+        RowBox[{"-", "Infinity"}], ",", "Infinity"}], "}"}], ",", 
+      RowBox[{"GenerateConditions", "\[Rule]", "False"}]}], "]"}], " ", 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.602115285655779*^9, 3.602115403610795*^9}, {
+  3.6021154589042263`*^9, 3.602115462474963*^9}, {3.602115515736582*^9, 
+  3.602115560585343*^9}, {3.602115605099777*^9, 3.602115646188415*^9}, {
+  3.602115678970768*^9, 3.602115708643248*^9}, {3.602115760733508*^9, 
+  3.6021157722338743`*^9}, {3.6021160080005417`*^9, 3.6021161104316196`*^9}, {
+  3.60211620624684*^9, 3.602116356308485*^9}, {3.602116389927452*^9, 
+  3.602116394031353*^9}, {3.602116444794219*^9, 3.6021164691993437`*^9}, {
+  3.602116617985571*^9, 3.6021166776948633`*^9}, {3.602116714695122*^9, 
+  3.60211682639146*^9}, {3.602116960168201*^9, 3.6021171204066133`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"-", 
+    FractionBox[
+     RowBox[{"2", " ", "y"}], 
+     RowBox[{
+      SuperscriptBox["x", "2"], "+", 
+      SuperscriptBox["y", "2"]}]]}], ",", 
+   FractionBox[
+    RowBox[{"2", " ", "x"}], 
+    RowBox[{
+     SuperscriptBox["x", "2"], "+", 
+     SuperscriptBox["y", "2"]}]], ",", "0"}], "}"}]], "Output",
+ CellChangeTimes->{{3.602116837009602*^9, 3.6021168460914*^9}, 
+   3.602116930349614*^9, 3.60211713428682*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"BInfiniteWire", "[", 
+    RowBox[{"{", 
+     RowBox[{"x_", ",", "y_"}], "}"}], "]"}], "=", 
+   RowBox[{"2", 
+    FractionBox[
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "y"}], ",", "x"}], "}"}], 
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["x", "2"], "+", 
+       SuperscriptBox["y", "2"]}], ")"}]]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.602115765193306*^9, 3.60211576792845*^9}, {
+  3.602116124840249*^9, 3.6021161646538477`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"makeFieldComponentDefinitions", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"Bx", ",", "By"}], "}"}], ",", "BInfiniteWire", ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}]}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.60211683618989*^9, 3.602116840739346*^9}, {
+  3.6021168842142878`*^9, 3.602116913458536*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"tMax", "=", "12"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"fieldLines", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"calculateFieldLine", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"cx", ",", "cy"}], "}"}], ",", "#", ",", 
+       RowBox[{"{", 
+        RowBox[{"Bx", ",", "By"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "tMax"}], "}"}], ",", 
+       RowBox[{"MaxSteps", "\[Rule]", 
+        SuperscriptBox["10", "4"]}]}], "]"}], "&"}], " ", "/@", " ", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Random", "[", "]"}], ",", " ", 
+      RowBox[{"{", "12", "}"}], ",", " ", 
+      RowBox[{"{", "2", "}"}]}], "]"}]}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.602117158813787*^9, 3.6021172112619133`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"NDSolve", "::", "ndnum"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Encountered non-numerical value for a derivative at \
+\[NoBreak]\\!\\(t\\)\[NoBreak] == \[NoBreak]\\!\\(0.`\\)\[NoBreak]. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/NDSolve/ndnum\\\", \
+ButtonNote -> \\\"NDSolve::ndnum\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.60211721263721*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"NDSolve", "::", "ndnum"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Encountered non-numerical value for a derivative at \
+\[NoBreak]\\!\\(t\\)\[NoBreak] == \[NoBreak]\\!\\(0.`\\)\[NoBreak]. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/NDSolve/ndnum\\\", \
+ButtonNote -> \\\"NDSolve::ndnum\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.602117212662435*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"NDSolve", "::", "ndnum"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Encountered non-numerical value for a derivative at \
+\[NoBreak]\\!\\(t\\)\[NoBreak] == \[NoBreak]\\!\\(0.`\\)\[NoBreak]. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/NDSolve/ndnum\\\", \
+ButtonNote -> \\\"NDSolve::ndnum\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.602117212692774*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(NDSolve \
+:: ndnum\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during this \
+calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.602117212724832*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.602117231098463*^9, 3.602117329185473*^9}, 
+   3.602117377150794*^9, {3.6021174626899967`*^9, 3.602117499701709*^9}, 
+   3.602117558818317*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"Evaluate", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"cx", "[", "t", "]"}], ",", 
+           RowBox[{"cy", "[", "t", "]"}], ",", "0", ",", 
+           RowBox[{"{", 
+            RowBox[{"Thickness", "[", "0.002", "]"}], "}"}]}], "}"}], "/.", 
+         "#"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "tMax"}], "}"}], ",", 
+       RowBox[{"PlotPoints", "\[Rule]", "200"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+       RowBox[{"DisplayFunction", "\[Rule]", "Identity"}]}], "]"}], "&"}], "/@",
+     "fieldLines"}], ",", 
+   RowBox[{"DisplayFunction", "\[Rule]", "$DisplayFunction"}]}], 
+  "\n"}]], "Input",
+ CellChangeTimes->{{3.602117541346903*^9, 3.6021175413484707`*^9}, {
+  3.6021175926862373`*^9, 3.6021176205181923`*^9}},
+ EmphasizeSyntaxErrors->True],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Syntax", "::", "tsntxi"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\\\"\[NoBreak]\\!\\(\[LeftSkeleton] 1 \[RightSkeleton]\\)\
+\[NoBreak]\\\" is incomplete; more input is \
+needed.\[NoBreak]\\!\\(\\\"\\\"\\)\[NoBreak]\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.602117604779469*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Syntax", "::", "sntxi"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Incomplete expression; more input is needed \
+\[NoBreak]\\!\\(\\\"\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.602117604838007*^9}]
+}, Open  ]]
+},
+WindowSize->{638, 390},
+WindowMargins->{{Automatic, 2}, {Automatic, 15}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (February 7, 2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 6226, 162, 690, "Input"],
+Cell[6808, 186, 470, 15, 50, "Output"]
+}, Open  ]],
+Cell[7293, 204, 506, 16, 56, "Input"],
+Cell[7802, 222, 366, 9, 55, "Input"],
+Cell[CellGroupData[{
+Cell[8193, 235, 795, 22, 103, "Input"],
+Cell[8991, 259, 503, 10, 40, "Message"],
+Cell[9497, 271, 504, 10, 40, "Message"],
+Cell[10004, 283, 504, 10, 40, "Message"],
+Cell[10511, 295, 531, 11, 41, "Message"]
+}, Open  ]],
+Cell[11057, 309, 192, 3, 32, "Input"],
+Cell[CellGroupData[{
+Cell[11274, 316, 976, 26, 143, "Input"],
+Cell[12253, 344, 340, 8, 23, "Message"],
+Cell[12596, 354, 274, 7, 23, "Message"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

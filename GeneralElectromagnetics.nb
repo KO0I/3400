@@ -1,0 +1,278 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      8422,        268]
+NotebookOptionsPosition[      7728,        242]
+NotebookOutlinePosition[      8062,        257]
+CellTagsIndexPosition[      8019,        254]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Length", " ", "of", " ", "a", " ", "Vector"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"norm", "[", "vector_", "]"}], ":=", 
+    SqrtBox[
+     RowBox[{"vector", ".", "vector"}]]}], "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"normalizing", " ", "vectors"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"n", "[", "vector_", "]"}], ":=", 
+    FractionBox["vector", 
+     RowBox[{"norm", "[", "vector", "]"}]]}]}]}]], "Input",
+ CellChangeTimes->{{3.602337561029751*^9, 3.6023376368303747`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"charges", "=", 
+   RowBox[{"Flatten", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"-", "1"}], ")"}], "^", 
+          RowBox[{"(", 
+           RowBox[{"i", "+", "j"}], ")"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "j"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", 
+         RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "]"}], ",", "1"}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.6023376567701406`*^9, 3.602337656777855*^9}, 
+   3.602337692830237*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[Phi]Coulomb", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"q_", ",", "pos_"}], "}"}], ",", "xyz_"}], "]"}], ":=", 
+  RowBox[{"q", "/", 
+   RowBox[{"norm", "[", 
+    RowBox[{"xyz", "-", "pos"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.602337670890582*^9, 3.6023376903303623`*^9}, 
+   3.602338999532834*^9}],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{"By", " ", "the", " ", "superposition", " ", "principle"}], ",", 
+   RowBox[{
+   "the", " ", "electrostatic", " ", "potential", " ", "is", " ", "simply", 
+    " ", "the", " ", "sum", " ", "of", " ", "the", " ", "potentials", " ", 
+    "of", " ", "all", " ", 
+    RowBox[{"charges", "."}]}]}], "*)"}]], "Input",
+ CellChangeTimes->{{3.602338969485886*^9, 3.602338997493332*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Phi]", "[", 
+    RowBox[{"{", 
+     RowBox[{"x_", ",", "y_"}], "}"}], "]"}], "=", 
+   RowBox[{"Plus", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"\[Phi]Coulomb", "[", 
+        RowBox[{"#", ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y"}], "}"}]}], "]"}], "&"}], "/@", "charges"}], 
+     ")"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6023389858712673`*^9, 3.602339011007395*^9}, {
+  3.602339106780143*^9, 3.602339108228753*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"contour", " ", "of", " ", "charge", " ", "array"}], " ", 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.602339012669291*^9, 3.6023390206526537`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"cp", "=", 
+   RowBox[{"ContourPlot", "[", 
+    RowBox[{
+     RowBox[{"Evaluate", "[", 
+      RowBox[{"\[Phi]", "[", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "y"}], "}"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "4"}], ",", "4"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "4"}], ",", "4"}], "}"}], ",", 
+     RowBox[{"PlotPoints", "\[Rule]", "200"}], ",", 
+     RowBox[{"Contours", "\[Rule]", "30"}], ",", 
+     RowBox[{"ContourStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"Thickness", "[", "0.002", "]"}], "}"}]}], ",", 
+     RowBox[{"DisplayFunction", "\[Rule]", "Identity"}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.602339027164825*^9, 3.602339035863151*^9}, {
+  3.602339115832704*^9, 3.602339117337144*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"Pretty", " ", "output"}], " ", "*)"}]], "Input",
+ CellChangeTimes->{{3.602339037178446*^9, 3.60233904194794*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"makeContours", "[", 
+   RowBox[{
+    RowBox[{"ContourGraphics", "[", 
+     RowBox[{"data_", ",", "___"}], "]"}], ",", "n_"}], "]"}], ":=", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"\[Lambda]", "=", 
+      RowBox[{"Sort", "[", 
+       RowBox[{"Flatten", "[", "data", "]"}], "]"}]}], "}"}], ",", 
+    RowBox[{"(*", 
+     RowBox[{
+     "generate", " ", "about", " ", "n", " ", "equal", " ", "length", " ", 
+      "sets"}], "*)"}], 
+    RowBox[{
+     RowBox[{
+      RowBox[{"#", "[", 
+       RowBox[{"[", 
+        RowBox[{"Floor", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "\[Lambda]", "]"}], "/", "n"}], "/", "2"}], 
+         "]"}], "]"}], "]"}], "&"}], "/@", 
+     RowBox[{"Partition", "[", 
+      RowBox[{"\[Lambda]", ",", 
+       RowBox[{"Floor", "[", 
+        RowBox[{
+         RowBox[{"Length", "[", "\[Lambda]", "]"}], "/", "n"}], "]"}]}], 
+      "]"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.602339050840213*^9, 3.6023390617919607`*^9}, {
+  3.6023391687215223`*^9, 3.602339176666237*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"equiPotentialPicture", "=", 
+   RowBox[{"ListContourPlot", "[", 
+    RowBox[{
+     RowBox[{"cp", "[", 
+      RowBox[{"[", "1", "]"}], "]"}], ",", 
+     RowBox[{"ColorFunction", "\[Rule]", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"Hue", "[", 
+         RowBox[{"#", " ", "0.75"}], "]"}], "&"}], ")"}]}], ",", 
+     RowBox[{"Contours", "\[Rule]", 
+      RowBox[{"makeContours", "[", 
+       RowBox[{"cp", ",", "30"}], "]"}]}], ",", 
+     RowBox[{"ContourStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"{", 
+        RowBox[{"Thickness", "[", "0.002", "]"}], "}"}], "}"}]}]}], "]"}]}], 
+  "\n"}]], "Input",
+ CellChangeTimes->{{3.602339064455864*^9, 3.602339099004156*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"ListContourPlot", "::", "argx"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(ListContourPlot\\)\[NoBreak] called with \
+\[NoBreak]\\!\\(0\\)\[NoBreak] arguments; 1 argument is expected. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/argx\\\", \
+ButtonNote -> \\\"ListContourPlot::argx\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.602339075967938*^9, 3.602339110493195*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListContourPlot", "[", 
+  RowBox[{
+   RowBox[{"{", "}"}], ",", 
+   RowBox[{"ColorFunction", "\[Rule]", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Hue", "[", 
+       RowBox[{"#1", " ", "0.75`"}], "]"}], "&"}], ")"}]}], ",", 
+   RowBox[{"Contours", "\[Rule]", 
+    RowBox[{"makeContours", "[", 
+     RowBox[{
+      GraphicsBox[{},
+       AspectRatio->1,
+       DisplayFunction:>Identity,
+       Frame->True,
+       Method->{},
+       PlotRange->{{-4, 4}, {-4, 4}},
+       PlotRangeClipping->True,
+       PlotRangePadding->{
+         Scaled[0.02], 
+         Scaled[0.02]}], ",", "30"}], "]"}]}], ",", 
+   RowBox[{"ContourStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"Thickness", "[", "0.002`", "]"}], "}"}], "}"}]}]}], 
+  "]"}]], "Output",
+ CellChangeTimes->{{3.602339075998942*^9, 3.60233911049539*^9}}]
+}, Open  ]]
+},
+WindowSize->{638, 783},
+WindowMargins->{{0, Automatic}, {2, Automatic}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (February 7, 2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 620, 17, 118, "Input"],
+Cell[1180, 39, 755, 24, 77, "Input"],
+Cell[1938, 65, 350, 10, 32, "Input"],
+Cell[2291, 77, 433, 9, 77, "Input"],
+Cell[2727, 88, 520, 16, 32, "Input"],
+Cell[3250, 106, 191, 4, 32, "Input"],
+Cell[3444, 112, 855, 23, 99, "Input"],
+Cell[4302, 137, 159, 3, 32, "Input"],
+Cell[4464, 142, 1095, 32, 121, "Input"],
+Cell[CellGroupData[{
+Cell[5584, 178, 722, 20, 121, "Input"],
+Cell[6309, 200, 544, 10, 41, "Message"],
+Cell[6856, 212, 856, 27, 181, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
